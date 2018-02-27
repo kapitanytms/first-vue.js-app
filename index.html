@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue.js</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="app" class="container">
+        <ul>
+            <li v-for="(photo, index) in photos">
+                <img v-bind:src="photo.url" alt="">
+                <p>{{photo.quantity}}</p>
+                <button @click="photo.quantity += 1">Increase quantity</button>
+                <span v-if="index === 1">
+                    2. item
+                </span>
+                <p>Total Inventory: {{totalPhotos}}</p>
+            </li>
+        </ul>
+    </div>
+
+    <!-- VUE CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <!-- VUE CODE -->
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                photos: [
+                    {
+                        url: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/Donald_Duck.svg/1200px-Donald_Duck.svg.png',
+                        quantity: 10
+                    },
+                    {
+                        url: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/Donald_Duck.svg/1200px-Donald_Duck.svg.png',
+                        quantity: 10                        
+                    },
+                    {
+                        url: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/Donald_Duck.svg/1200px-Donald_Duck.svg.png',
+                        quantity: 10                        
+                    },
+                    {
+                        url: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/Donald_Duck.svg/1200px-Donald_Duck.svg.png',
+                        quantity: 12                        
+                    },
+                ]
+            },
+            computed: {
+                totalPhotos () {
+                    return this.photos.reduce((sum, photo) => {
+                        return sum + photo.quantity;
+                    }, 0);
+                }
+            }
+            // created() {
+            // fetch('https://jsonplaceholder.typicode.com/photos')
+            //     .then(response => response.json())
+            //     .then(json => {
+            //         this.photos = json;
+            //     })
+            // }
+
+        });
+
+
+    </script>
+</body>
+</html>
